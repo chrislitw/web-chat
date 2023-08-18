@@ -2,9 +2,11 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useWebsocketStore = defineStore('websocket', () => {
-  const URL = import.meta.env.VITE_WS_URL
+  console.log(import.meta.env.VITE_WEBSOCKET_URL)
 
-  const ws = new WebSocket(URL)
+  const WEBSOCKET_URL = import.meta.env.VITE_WEBSOCKET_URL
+
+  const ws = new WebSocket(WEBSOCKET_URL)
   const messages = ref<string[]>([])
 
   ws.onopen = () => {
