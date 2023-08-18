@@ -6,6 +6,10 @@ const PORT = process.env.PORT || 8081;
 
 require("./websocket")(server);
 
+app.get("/", (req, res) => {
+  res.send("hello world!");
+});
+
 // 監聽 PORT 的訊息
 server.listen(PORT, () => {
   console.log(`server started at http://localhost:${PORT}`);
