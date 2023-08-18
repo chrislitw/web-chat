@@ -14,12 +14,6 @@ module.exports = function (server) {
 
       const { action, message } = data1;
       switch (action) {
-        // case "size":
-        //   ws.send(wss.clients.size);
-        //   break;
-        // case "connect":
-        //   ws.send("connected");
-        //   break;
         case "message":
           broadcast(message);
           break;
