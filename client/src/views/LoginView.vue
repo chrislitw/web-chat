@@ -22,11 +22,11 @@ const handleLogin = () => {
 <template>
   <div class="wrap">
     <div class="container">
-      <div class="flex flex-col gap-5">
+      <form class="flex flex-col gap-5" @submit.prevent="handleLogin">
         <h1 class="text-3xl font-bold text-zinc-700">Login</h1>
-        <input class="input" type="text" v-model="name" placeholder="name" />
-        <button class="btn" @click="handleLogin">Login</button>
-      </div>
+        <input class="input" type="text" v-model="name" placeholder="name" required />
+        <button class="btn">Login</button>
+      </form>
     </div>
   </div>
 </template>

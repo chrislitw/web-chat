@@ -6,61 +6,64 @@ import MessageBox from './MessageBox.vue'
 
 const websocketStore = useWebsocketStore()
 
-// import WebSocketClient from '@/websocket-client'
-
-// const aaa = (message: string) => {
-//   console.log('hello world')
-//   messages.value.push(message)
-// }
-
-// const handleConnect = () => {
-//   window.ws = new WebSocketClient(aaa)
-// }
-
 const handleEnter = () => {
-  const data = { action: 'message', message: inputValue.value }
-  websocketStore.sendmessageAction(data)
-  // window.ws.sendmessageAction(data)
+  if (inputValue.value !== '') {
+    const data = { action: 'message', message: inputValue.value }
+    websocketStore.sendmessageAction(data)
+    inputValue.value = ''
+  }
 }
 
 const inputValue = ref('')
-
-// const messages = ref<string[]>([])
 </script>
 <template>
   <div class="wrap">
     <div class="container">
       <div class="content overflow-y-auto">
         <div class="flex flex-col gap-3">
-          <MessageBox v-for="(item, index) in websocketStore.messages" :key="index"
-            ><slot>{{ item }}</slot></MessageBox
-          >
+          <MessageBox v-for="(item, index) in websocketStore.messages" :key="index">
+            <slot>{{ item }}</slot>
+          </MessageBox>
         </div>
       </div>
-      <div class="input-area shrink-0">
-        <input type="text" class="h-full grow rounded" v-model="inputValue" />
-        <button class="btn" @click="handleEnter">Enter</button>
-      </div>
+      <form class="input-area shrink-0" @submit.prevent="handleEnter">
+        <input
+          type="text"
+          class="h-full grow rounded border bg-gray-100 px-3"
+          v-model="inputValue"
+          required
+        />
+        <button type="submit" class="btn btn-blue">Send</button>
+      </form>
     </div>
   </div>
 </template>
 <style scoped>
 .wrap {
-  @apply h-screen w-screen bg-slate-700/50 p-5;
+  @apply h-screen w-screen bg-white p-5;
 }
 .container {
-  @apply flex h-full w-full flex-col overflow-hidden rounded border;
+  @apply m-auto flex h-full max-w-xl flex-col overflow-hidden rounded border;
 }
 
 .content {
-  @apply w-full grow p-1;
+  @apply w-full grow bg-[url('/bg.png')] p-2;
 }
 
 .input-area {
-  @apply flex h-10 w-full items-center gap-1 bg-slate-300 p-1;
+  @apply flex h-12 w-full items-center gap-2 border-t p-2;
 }
 
 .btn {
-  @apply h-full w-[80px] shrink-0 rounded bg-green-400 hover:bg-green-200;
+  @apply inline-flex h-full items-center rounded px-4;
+}
+.btn-blue {
+  @apply bg-blue-500 text-white;
+}
+.btn-blue:hover {
+  @apply bg-blue-700;
+}
+.btn-blue:focus {
+  @apply outline outline-2  outline-offset-2 outline-cyan-500;
 }
 </style>
