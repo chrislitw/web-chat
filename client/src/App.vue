@@ -18,7 +18,11 @@ if (typeof data === 'string') {
 </template>
 
 <style>
+body {
+  @apply overflow-hidden;
+  height: 100dvh;
+}
 #app {
-  @apply h-screen w-screen overflow-hidden;
+  @apply h-full w-full overflow-hidden;
 }
 </style>
