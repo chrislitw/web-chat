@@ -1,49 +1,23 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useAuthStore } from '@/stores/auth'
-import { useRouter } from 'vue-router'
-const authStore = useAuthStore()
-
-const router = useRouter()
-
-const name = ref('')
-
-const handleLogin = () => {
-  if (name.value === '') {
-    alert('please enter name')
-  } else {
-    localStorage.setItem('name', name.value)
-    authStore.name = name.value
-    router.push({ name: 'home' })
-    console.log('asdas')
-  }
-}
+import IconGoogle from '@/components/icons/IconGoogle.vue'
+import { useFirebaseStore } from '@/stores/firebase'
+const firebaseStore = useFirebaseStore()
 </script>
 <template>
-  <div class="wrap">
-    <div class="container">
-      <form class="flex flex-col gap-5" @submit.prevent="handleLogin">
-        <h1 class="text-3xl font-bold text-zinc-700">Login</h1>
-        <input class="input" type="text" v-model="name" placeholder="name" required />
-        <button class="btn">Login</button>
-      </form>
+  <div class="flex h-screen w-screen items-center justify-center bg-zinc-200 px-5">
+    <div class="w-80 max-w-sm rounded-md border-zinc-400 bg-white p-5 shadow-lg">
+      <div class="flex flex-col gap-5">
+        <div class="w-full">
+          <button
+            class="round flex h-12 w-full items-center justify-center gap-3 rounded border bg-white hover:border-sky-400 hover:text-sky-400 active:border-2"
+            @click="firebaseStore.signInWithGoogle"
+          >
+            <div class="h-8 w-8"><IconGoogle class="h-full w-full object-cover" /></div>
+            Google
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
-<style scoped>
-.wrap {
-  @apply flex h-screen w-screen items-center justify-center bg-zinc-200 px-5;
-}
-
-.container {
-  @apply max-w-sm rounded-md border border-zinc-400 bg-zinc-50 p-5 shadow;
-}
-
-.input {
-  @apply h-12 w-full rounded-md border bg-zinc-100 p-3 focus:outline-blue-400;
-}
-
-.btn {
-  @apply h-12 w-full rounded-md bg-blue-400 text-white hover:bg-blue-200 active:bg-blue-600;
-}
-</style>
+<style scoped></style>

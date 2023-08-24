@@ -30,8 +30,10 @@ export const useWebsocketStore = defineStore('websocket', () => {
   }
 
   const _onmessageAction = (e: MessageEvent) => {
-    console.log('onmessage', e.data)
-    messages.value.push(e.data)
+    // console.log('onmessage', e.data)
+    const data = JSON.parse(e.data)
+
+    messages.value.push(data)
   }
 
   const sendmessageAction = (data: any) => {
