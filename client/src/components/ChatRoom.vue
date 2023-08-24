@@ -25,13 +25,23 @@ const handleEnter = () => {
     inputValue.value = ''
   }
 }
+
+type Msg = {
+  uid: string
+  message: string
+  photoURL: string
+  time: string
+}
 </script>
 <template>
   <div class="wrap">
     <div class="container">
       <div class="content overflow-y-auto">
         <div class="flex flex-col gap-3">
-          <template v-for="(item, index) in websocketStore.messages" :key="index">
+          <template
+            v-for="(item, index) in websocketStore.messages as unknown as Msg[]"
+            :key="index"
+          >
             <MessageBox :msg="item"></MessageBox>
           </template>
         </div>
