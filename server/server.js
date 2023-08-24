@@ -17,10 +17,10 @@ wss.on("connection", function connection(ws) {
     const data1 = JSON.parse(data);
     console.log("onmessage", data1);
 
-    const { action, message } = data1;
+    const { action, msg } = data1;
     switch (action) {
       case "message":
-        broadcast(message);
+        broadcast(msg);
         break;
 
       default:
@@ -30,7 +30,9 @@ wss.on("connection", function connection(ws) {
 });
 
 const broadcast = (data) => {
-  wss.clients.forEach((client) => client.send(data));
+  let data1 = JSON.stringify(data);
+
+  wss.clients.forEach((client) => client.send(data1));
 };
 
 app.get("/", (req, res) => {

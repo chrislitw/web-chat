@@ -1,29 +1,39 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useWebsocketStore } from '../stores/websocket'
+import { useUserStore } from '@/stores/user'
+import BoA from './BoA.vue'
 
-import MessageBox from './MessageBox.vue'
-
+const userStore = useUserStore()
 const websocketStore = useWebsocketStore()
+const inputValue = ref('')
 
 const handleEnter = () => {
   if (inputValue.value !== '') {
-    const data = { action: 'message', message: inputValue.value }
+    const date = new Date()
+    const time = date.toLocaleString('sv').split(' ')[1]
+    const data = {
+      action: 'message',
+      msg: {
+        uid: userStore.user.uid,
+        photoURL: userStore.user.photoURL,
+        message: inputValue.value,
+        time
+      }
+    }
     websocketStore.sendmessageAction(data)
     inputValue.value = ''
   }
 }
-
-const inputValue = ref('')
 </script>
 <template>
   <div class="wrap">
     <div class="container">
       <div class="content overflow-y-auto">
         <div class="flex flex-col gap-3">
-          <MessageBox v-for="(item, index) in websocketStore.messages" :key="index">
-            <slot>{{ item }}</slot>
-          </MessageBox>
+          <template v-for="(item, index) in websocketStore.messages" :key="index">
+            <BoA :msg="item"></BoA>
+          </template>
         </div>
       </div>
       <form class="input-area shrink-0" @submit.prevent="handleEnter">
