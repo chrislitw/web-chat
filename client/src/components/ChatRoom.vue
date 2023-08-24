@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useWebsocketStore } from '../stores/websocket'
 import { useUserStore } from '@/stores/user'
-import BoA from './BoA.vue'
+import MessageBox from './MessageBox.vue'
 
 const userStore = useUserStore()
 const websocketStore = useWebsocketStore()
@@ -32,7 +32,7 @@ const handleEnter = () => {
       <div class="content overflow-y-auto">
         <div class="flex flex-col gap-3">
           <template v-for="(item, index) in websocketStore.messages" :key="index">
-            <BoA :msg="item"></BoA>
+            <MessageBox :msg="item"></MessageBox>
           </template>
         </div>
       </div>
