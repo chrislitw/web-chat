@@ -10,22 +10,21 @@ const wss = new WebSocket.Server({ server });
 
 wss.on("connection", function connection(ws) {
   console.log("client connecte success", wss.clients.size);
+  const sizeData = { action: "size", msg: wss.clients.size };
+  broadcast(sizeData);
 
   ws.on("error", console.error);
 
   ws.on("message", function message(data) {
     const data1 = JSON.parse(data);
     console.log("onmessage", data1);
+    broadcast(data1);
+  });
 
-    const { action, msg } = data1;
-    switch (action) {
-      case "message":
-        broadcast(msg);
-        break;
-
-      default:
-        break;
-    }
+  ws.on("close", function disconnet(e) {
+    console.log("client disconnect", wss.clients.size);
+    const sizeData = { action: "size", msg: wss.clients.size };
+    broadcast(sizeData);
   });
 });
 

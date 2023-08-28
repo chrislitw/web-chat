@@ -35,7 +35,11 @@ const handleEnter = () => {
 </script>
 <template>
   <div class="h-screen w-screen p-5">
-    <div class="m-auto flex h-full max-w-xl flex-col overflow-hidden rounded border">
+    <div class="relative m-auto flex h-full max-w-xl flex-col overflow-hidden rounded border">
+      <div class="flex h-12 w-full shrink-0 items-center border-b p-2">
+        在線人數: {{ websocketStore.size }}
+      </div>
+
       <div class="w-full grow overflow-y-auto bg-[url('/bg.png')] p-2">
         <div class="flex flex-col gap-3">
           <template
