@@ -36,10 +36,10 @@ export const useWebsocketStore = defineStore('websocket', () => {
 
     switch (action) {
       case 'message':
-        messages.value.push(msg)
+        messages.value.push(msg as string)
         break
       case 'size':
-        size.value = msg
+        size.value = msg as number
         break
 
       default:
