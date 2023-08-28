@@ -8,6 +8,7 @@ export const useWebsocketStore = defineStore('websocket', () => {
 
   const ws = new WebSocket(WEBSOCKET_URL)
   const messages = ref<string[]>([])
+  const size = ref<number>(0)
 
   ws.onopen = () => {
     _openAction()
@@ -30,15 +31,25 @@ export const useWebsocketStore = defineStore('websocket', () => {
   }
 
   const _onmessageAction = (e: MessageEvent) => {
-    // console.log('onmessage', e.data)
     const data = JSON.parse(e.data)
+    const { action, msg } = data
 
-    messages.value.push(data)
+    switch (action) {
+      case 'message':
+        messages.value.push(msg)
+        break
+      case 'size':
+        size.value = msg
+        break
+
+      default:
+        break
+    }
   }
 
   const sendmessageAction = (data: any) => {
     ws.send(JSON.stringify(data))
   }
 
-  return { messages, sendmessageAction }
+  return { messages, size, sendmessageAction }
 })
