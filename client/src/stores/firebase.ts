@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { useUserStore } from '@/stores/user'
 import { firebaseApp } from '@/config/firebase.ts'
 import firebase from 'firebase/compat/app'
+import { ref } from 'firebase/storage'
 
 export const useFirebaseStore = defineStore('firebase', () => {
   // Google 登入
@@ -15,7 +16,7 @@ export const useFirebaseStore = defineStore('firebase', () => {
         const userStore = useUserStore()
 
         // console.log('Google 登录成功！', res)
-        const { displayName, email, uid, photoURL } = res.user as unknown as {
+        const { displayName, email, uid, photoURL } = res.user as {
           displayName: string | null
           email: string | null
           uid: string | null
@@ -33,8 +34,8 @@ export const useFirebaseStore = defineStore('firebase', () => {
       })
   }
 
-  // Google 登出
-  const userLogOut = () => {
+  // 登出
+  const userSignOut = () => {
     firebaseApp
       .auth()
       .signOut()
@@ -46,5 +47,16 @@ export const useFirebaseStore = defineStore('firebase', () => {
       })
   }
 
-  return { signInWithGoogle, userLogOut }
+  // const firestore = firebase.firestore()
+  // const messageCollection = firestore.collection('messages')
+  // const messageQuery = messageCollection.orderBy('createdAt', 'desc').limit(100)
+
+  // const _userChat = () => {
+  //   const messages = ref<string[]>([])
+  //   const unsubscribe = messageQuery.onSnapshot((snapshot) => {
+  //     messages.value = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data })).reverse()
+  //   })
+  // }
+
+  return { signInWithGoogle, userSignOut }
 })
