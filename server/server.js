@@ -6,7 +6,7 @@ const WebSocket = require("ws");
 const cors = require("cors");
 
 const corsOptions = {
-  origin: ["https://cors-test-client.zeabur.app/"],
+  origin: ["https://cors-test-client.zeabur.app"],
 };
 app.use(cors(corsOptions));
 
