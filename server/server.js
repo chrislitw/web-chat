@@ -3,6 +3,12 @@ const express = require("express");
 const app = express();
 const server = require("http").createServer(app);
 const WebSocket = require("ws");
+const cors = require("cors");
+
+const corsOptions = {
+  origin: ["https://cors-test-client.zeabur.app/"],
+};
+app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 8081;
 
