@@ -20,8 +20,10 @@ if (typeof data === 'string') {
 <style>
 body {
   @apply overflow-hidden;
+  @apply transition-colors duration-500;
   height: 100dvh;
 }
+
 #app {
   @apply h-full w-full overflow-hidden;
 }
