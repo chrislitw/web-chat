@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ChatRoom from '@/components/ChatRoom.vue'
+import ChatRoom from '@/components/chatroom/ChatRoom.vue'
 </script>
 
 <template>
